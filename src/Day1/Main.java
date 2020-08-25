@@ -105,48 +105,7 @@ public class Main {
 			}
 			System.out.println(stackR.pop());
 		}
-		
-		
-//		int a = stackS.pop();
-//		int b = stackQ.pop();
-//		while(stackR.size() >= 0) {
-//			if(stackQ.size() == 0) {
-//				if(a != b) {
-//					stackR.push(a);
-//				}
-//				if(stackR.size() != 0) {
-//					a = stackS.pop();
-//				}
-//			}
-//			else {
-//				if(a > b) {
-//					if(stackS.size() == 1) {
-//						stackR.push(a);
-//					}
-//					else {
-//						stackR.push(a);
-//						a = stackS.pop();
-//					}
-//
-//				}
-//				else if(a < b){
-//					b = stackQ.pop();
-//					
-//				}
-//				else {
-//					a = stackS.pop();
-//				
-//				}
-//			}
-//			
-//		}
-
-//		for(int i = 0; i < stackR.size(); i++) {
-//			System.out.print(stackR.pop() + " ");
-//		}
-//		System.out.println(stackR.pop());
-		
-		
+				
 		
 		//https://www.spoj.com/problems/FACEFRND/
 //		int m = scanner.nextInt();
