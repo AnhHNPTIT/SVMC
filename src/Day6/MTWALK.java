@@ -2,54 +2,40 @@ package Day6;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.Scanner;
-import javafx.util.Pair;
 
 public class MTWALK {
 	public static int n, h_max, h_min;
 	public static int[][] arr = new int[105][105];
 	public static int[][] d = new int[105][105];
-	public static int[] dx = {-1, 0, 1, 0};
-	public static int[] dy = {0, -1, 0, 1};
+	public static int dx[] = {0, 1, 0, -1};
+	public static int dy[] = {1, 0, -1, 0};
 	
-	public static boolean bfs(int del) {
-		for(int l = h_min; l <= h_max - del; l++) {
-			int r = l + del;
-			if(arr[1][1] < l || arr[1][1] > r) {
-				continue;
-			}
-			for(int i = 1; i <= n; i++) {
-				for(int j = 1; j <= n; j++) {
-					d[i][j] = 0;
-				}
-			}
-			d[1][1] = 1;
-			Queue<Pair<Integer, Integer>> queue = new LinkedList<>();
-			Pair<Integer, Integer> tmp = new Pair(1, 1);
-			queue.add(tmp);
-			while(!queue.isEmpty()) {
-				int i = queue.peek().getKey();
-				int j = queue.peek().getValue();
-				if (i == n && j == n) return true;
-				for(int k = 0; k <= 3; k++) {
-					int u = i + dx[k], v = j + dy[k];
-					if (u < 1 || u > n || v < 1 || v > n) {
-						continue;
-					}
-					if (arr[u][v] < l || arr[u][v] > r) {
-						continue;
-					}
-					d[u][v] = 1;
-					tmp = new Pair(u, v);
-					queue.add(tmp);
-				}	
+	public static void reset(int[][] arr, int n) {
+		for(int i = 0; i < n; i++) {
+			for(int j = 0; j < n; j++) {
+				arr[i][j] = 0;
 			}
 		}
-		return false;
 	}
 	
+	public static boolean dfs(int u, int v) {
+	    d[u][v] = 1; 
+	    if(u == n - 1 && v == n-1) { // đã đến đích --> dừng
+	    	return true;
+	    }
+	    
+	    // xét 4 vị trí lần lượt là phải, xuống, trái, lên
+	    for(int i = 0; i < 4; i++) {
+	        int x = u + dx[i], y = v + dy[i];
+	        if(x >= 0 && y >= 0 && x < n && y < n && d[x][y] == 0 && arr[x][y] >= h_min && arr[x][y] <= h_max) {
+	            if(dfs(x,y)) { // tại vị trí tiếp theo ko thể đi được --> dừng
+	            	return true;
+	            }
+	        }
+	    }
+		return false;
+	}
 	
 	public static void main(String[] args) throws IOException {				
 		FileReader fReader = new FileReader("src\\input6.txt");			
@@ -57,28 +43,38 @@ public class MTWALK {
 					
 		//https://vn.spoj.com/problems/MTWALK/
 		n = scanner.nextInt();
-		h_max = 110;
-		h_min = 0;
-		for(int i = 1; i <= n; i++) {
-			for(int j = 1; j <= n; j++) {
+		for(int i = 0; i < n; i++) {
+			for(int j = 0; j < n; j++) {
 				arr[i][j] = scanner.nextInt();
-				h_max = (arr[i][j] > h_max) ? arr[i][j] : h_max;
-				h_min = (arr[i][j] < h_min) ? arr[i][j] : h_min;
 			}
 		}
 		
-		int left = 0, right = h_max - h_min, del = 0;
-		while(left <= right) {
-			int mid = (left + right)/ 2;
-			if(bfs(mid)) {
-				del = mid; right = mid - 1;
-			}
-			else {
-				left = mid + 1;
-			}
-		}
-		
-		System.out.println(del);
+		int del = 110; // độ lệch giữa độ cao lớn nhất và thấp nhất
+	    for(h_min = 0; h_min <= arr[0][0]; h_min++) {
+	        int L = 0, H = 110;
+	        while(L <= H) {
+	            int mid = (L + H) >> 1;
+	            h_max = h_min + mid;
+	            reset(d, n);
+	            boolean isCheck = dfs(0,0);
+
+	            if(L == H) {
+	                if(!isCheck) {
+	                	L = 110;
+	                }
+	                break;
+	            }
+	            
+	            if(isCheck) {
+	            	H = mid;
+	            }
+	            else {
+	            	L = mid + 1;
+	            }
+	        }
+	        del = (del < L) ? del : L;
+	    }
+	    System.out.println(del);
 		
 		fReader.close();
 	}
