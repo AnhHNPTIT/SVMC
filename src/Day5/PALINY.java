@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class PALINY {
 	public static boolean isPaliny(String str) {
 		int n = str.length();
-		for(int i = 0; i < n; i++) {
+		for(int i = 0; i < (int) n/2; i++) {
 			if(str.charAt(i) != str.charAt(n - 1 - i)) {
 				return false;
 			}
@@ -25,7 +25,7 @@ public class PALINY {
 		String str = scanner.nextLine();
 		int max = 0;
 		for(int i = 0; i < n - 1; i++) {
-			for(int j = i + 1; j < n; j++) {
+			for(int j = i + 1; j <= n; j++) {
 				String tmp = str.substring(i, j);
 				if(isPaliny(tmp)) {
 					int len = j - i;
