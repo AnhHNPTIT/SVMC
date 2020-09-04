@@ -1,0 +1,40 @@
+6
+1 15
+1 20
+2
+3
+2
+3
+ 
+ 9
+ PUSH 100
+ PUSH 50
+ MIN
+ PUSH 45
+ MIN
+ POP
+ MIN
+ POP
+ MIN
+ 
+ 11
+ PUSH 5
+ PUSH 7
+ PUSH 3
+ PUSH 8
+ PUSH 10
+ MIN
+ POP
+ POP
+ MIN
+ POP
+ MIN
+
+5
+5 1 2 4 3 
+0
+
+3
+(a+(b*c))
+((a+b)*(z+x))
+((a+t)*((b+(a+c))^(c+d)))
