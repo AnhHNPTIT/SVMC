@@ -46,6 +46,7 @@ public class STACKEZ {
 		
 		// https://www.spoj.com/SVMCCLAS/problems/STACKEZ/
 		int step = scanner.nextInt();
+		initStack();
 		for(int count = 1; count <= step; count++) {
 			int tmp = scanner.nextInt();
 			if(tmp == 1) {

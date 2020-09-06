@@ -42,7 +42,7 @@ public class MINSTACK {
 	
 	public static int minOfStack() {
 		int min = (int) 10e9;
-		for(int i = 1; i <= top; i++) {
+		for(int i = 0; i <= top; i++) {
 			min = (st[i] < min) ? st[i] : min;
 		}
 		return min;
@@ -55,6 +55,7 @@ public class MINSTACK {
 		// https://www.spoj.com/SVMCCLAS/problems/MINSTACK/
 		int step = scanner.nextInt();
 		scanner.nextLine();
+		initStack();
 		for(int i = 1; i <= step; i++) {
 			String str = scanner.nextLine();
 			if(str.contains("PUSH")) {
