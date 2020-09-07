@@ -18,11 +18,15 @@ public class QUEUEEZ {
         q[rear] = x;
 	}
 	
-	public static int deQueue() {
-        front++;
-        return q[front];
+	public static void deQueue() {
+        if (front < rear){
+            front++;
+        }
 	}
 	
+	public static int prQueue() {
+		return q[front + 1];
+	}
 	public static boolean isEmpty() {
 		return (front == rear);
 	}
@@ -33,6 +37,7 @@ public class QUEUEEZ {
 		
 		// https://www.spoj.com/problems/QUEUEEZ/
         int step = scanner.nextInt();
+        createQueue();
         for(int count = 1; count <= step; count++) {
         	int n = scanner.nextInt();
         	if (n == 1) {
@@ -40,13 +45,11 @@ public class QUEUEEZ {
         		enQueue(x);
         	}
         	else if (n == 2) {
-        		if (!isEmpty()) {
-        			deQueue();
-        		}
+        		deQueue();
         	}
         	else if (n == 3){
         		if (!isEmpty()) {
-        			System.out.println(deQueue());
+        			System.out.println(prQueue());
         		}
 				else {
 					System.out.println("Empty!");
